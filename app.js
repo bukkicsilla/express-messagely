@@ -21,17 +21,18 @@ app.use(authenticateJWT);
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
-//const messageRoutes = require("./routes/messages");
+const messageRoutes = require("./routes/messages");
 
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
-//app.use("/messages", messageRoutes);
+app.use("/messages", messageRoutes);
 
 app.get("/", function (req, res, next) {
   return res.json({ message: "Welcome to the messagely API!" });
 });
 
 app.use(function (req, res, next) {
+  console.log("Time", Date.now());
   const err = new ExpressError("Not Found", 404);
   return next(err);
 });
